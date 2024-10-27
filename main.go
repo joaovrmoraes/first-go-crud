@@ -25,5 +25,21 @@ func main() {
 		handlers.CreateUser(db, w, r)
 	}).Methods("POST")
 
+	router.HandleFunc("/users", func(w http.ResponseWriter, r *http.Request) {
+		handlers.ListUsers(db, w, r)
+	}).Methods("GET")
+
+	router.HandleFunc("/user/{id}", func(w http.ResponseWriter, r *http.Request) {
+		handlers.ListUserById(db, w, r)
+	}).Methods("GET")
+
+	router.HandleFunc("/user/{id}", func(w http.ResponseWriter, r *http.Request) {
+		handlers.UpdateUser(db, w, r)
+	}).Methods("PUT")
+
+	router.HandleFunc("/user/{id}", func(w http.ResponseWriter, r *http.Request) {
+		handlers.DeleteUser(db, w, r)
+	}).Methods("DELETE")
+
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
